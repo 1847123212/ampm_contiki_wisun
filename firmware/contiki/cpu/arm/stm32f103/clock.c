@@ -24,14 +24,14 @@ SysTick_Handler(void)
     current_seconds++;
     second_countdown = CLOCK_SECOND;
   }
-	SysTick_Task();
+	//SysTick_Task();
 }
 
 
 void
 clock_init()
 {
-	SysTick->LOAD  = ((SystemCoreClock/10000) - 1);      // set reload register
+	SysTick->LOAD  = ((SystemCoreClock/CLOCK_SECOND) - 1);      // set reload register
 	/* preemption = TICK_PRIORITY, sub-priority = 1 */
 	NVIC_SetPriority(SysTick_IRQn, ((0x01<<3)| 1));
   SysTick->VAL   =  0;                                          // clear  the counter

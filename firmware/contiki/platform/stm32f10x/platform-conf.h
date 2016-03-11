@@ -61,9 +61,9 @@
 #define LEDS_CONF_ALL 3 /*No sensors -> we can use SPIRIT1 LED in this case*/
 #endif /*X_NUCLEO_IKS01A1*/
 /*---------------------------------------------------------------------------*/
-#define F_CPU                   32000000ul
+#define F_CPU                   48000000ul
 #define RTIMER_ARCH_SECOND              32768
-#define PRESCALER       ((F_CPU / (RTIMER_ARCH_SECOND * 2)))
+//#define PRESCALER       ((F_CPU / (RTIMER_ARCH_SECOND * 2)))
 
 #define UART1_CONF_TX_WITH_INTERRUPT        0
 #define WITH_SERIAL_LINE_INPUT              1
@@ -74,7 +74,7 @@
 /* define ticks/second for slow and fast clocks. Notice that these should be a
    power of two, eg 64,128,256,512 etc, for efficiency as POT's can be optimized
    well. */
-#define CLOCK_CONF_SECOND             1000
+#define CLOCK_CONF_SECOND             128
 /* One tick: 62.5 ms */
 
 #define RTIMER_CLOCK_LT(a, b)     ((signed short)((a) - (b)) < 0)

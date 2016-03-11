@@ -3,9 +3,9 @@
 
 #include "stm32f10x.h"
 #include <stdint.h>
-#include "lib/ringbuf.h"
-#include "hw_config.h"
+#include "ringbuf.h"
 #include "stm32f10x_usart.h"
+
 
 #define UART3_USE_TX_RINGBUFF
 

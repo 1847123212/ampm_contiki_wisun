@@ -50,7 +50,7 @@
 #include "hw_config.h"
 #define SPI_WAITFORTx_BEFORE() halSpiBegin()
 #ifndef DEBUG_CC1200_ARCH
-#define DEBUG_CC1200_ARCH 0
+#define DEBUG_CC1200_ARCH 1
 #endif
 /*---------------------------------------------------------------------------*/
 #if DEBUG_CC1200_ARCH > 0
@@ -201,14 +201,17 @@ void
 cc1200_arch_init(void)
 {
 	SPI_InitHighFreq(1);
-	
+	CC1200_CSN_OUTPUT;
 	CC1200_CLK_ALT_MODE;
 	CC1200_MISO_ALT_MODE;
 	CC1200_MOSI_ALT_MODE;
+	
   /* First leave RESET high */
   CC1200_RESET_OUTPUT;
+	CC1200_RESET_CLR;
+	clock_delay(10000);
   CC1200_RESET_SET;
-
+	
   /* Initialize CSn, enable CSn and then wait for MISO to go low*/
   SPI_WAITFORTx_BEFORE();
 

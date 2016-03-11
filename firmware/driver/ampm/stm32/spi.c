@@ -73,7 +73,19 @@ void SPI_InitHighFreq(uint8_t channel)
 	}
 	else if(channel == 1)
 	{
+		
+		//SPI1 Init
+		GPIOA->CRL 	 &= ~(GPIO_CRL_MODE5 | GPIO_CRL_CNF5 | 
+											GPIO_CRL_MODE6 | GPIO_CRL_CNF6 | 
+											GPIO_CRL_MODE7 | GPIO_CRL_CNF7); // Clear PA5, PA6, PA7 
+		
+		GPIOA->CRL   |=   GPIO_CRL_CNF5_1 | GPIO_CRL_MODE5_0 | GPIO_CRL_MODE5_1; // PB5 Alternate function output push-pull
+		GPIOA->CRL   |=   GPIO_CRL_CNF6_1 | GPIO_CRL_MODE6_0 | GPIO_CRL_MODE6_1; // PB6 Alternate function output push-pull
+		GPIOA->CRL   |=   GPIO_CRL_CNF7_1 | GPIO_CRL_MODE7_0 | GPIO_CRL_MODE7_1; // PB7 Alternate function output push-pull
+		
+		
 		RCC->APB2ENR |=  RCC_APB2ENR_SPI1EN;	/*enable clock for SPI1*/
+		
 			/* Clear BIDIMode, BIDIOE, RxONLY, SSM, SSI, LSBFirst, BR, MSTR, CPOL and CPHA bits */
 		SPI1->CR1 &= SPI_CR1_CLEAR_Mask;
 		SPI1->CR1 |= SPI_CR1_MSTR | SPI_CR1_SSI | SPI_CR1_SSM | SPI_CR1_BR_0;// | SPI_CR1_CPHA | SPI_CR1_CPOL;
@@ -150,7 +162,7 @@ void halSpiReadMutilByte(unsigned char* buf,uint32_t len)
 
 uint8_t halSpiBegin(void)
 {
-  uint16_t i = 20000;
+  uint16_t i = 200000;
   CC1200_CSN_CLR;
   while(i--)
   {

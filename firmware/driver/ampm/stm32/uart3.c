@@ -6,10 +6,6 @@
 */
 
 #include "uart3.h"
-#include "system_config.h"
-extern RINGBUF comRingBuf;
-extern uint8_t logEnable;
-extern void RFID_Input(char c);
 uint32_t uart3_parity = 0;
 /*----------------------------------------------------------------------------
  Define  Baudrate setting (BRR) for USART3 
@@ -19,7 +15,7 @@ uint32_t uart3_parity = 0;
 #define __DIVFRAQ(__PCLK, __BAUD)   (((__DIV(__PCLK, __BAUD) - (__DIVMANT(__PCLK, __BAUD) * 100)) * 16 + 50) / 100)
 #define __USART3_BRR(__PCLK, __BAUD) ((__DIVMANT(__PCLK, __BAUD) << 4)|(__DIVFRAQ(__PCLK, __BAUD) & 0x0F))
 
- uint8_t USART3_RxBuff[1024] = {0};
+ uint8_t USART3_RxBuff[512] = {0};
  RINGBUF USART3_RxRingBuff;
 
 #ifdef UART3_USE_TX_RINGBUFF

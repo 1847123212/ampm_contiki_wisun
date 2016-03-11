@@ -36,7 +36,7 @@
 
 #include "hello-world1.h"
 
-#include "uart1.h"
+#include "uart3.h"
 #include "rtc.h"
 #include "adc.h"
 #include "dev/watchdog.h"
@@ -117,12 +117,21 @@ print_processes(struct process * const processes[])
   }
   putchar('\n');
 }
-
+extern void EXTI_Init(void);
 void initialize(void) {
 	SystemInit();
+	RCC->APB2ENR = (RCC_APB2ENR_AFIOEN |  /*enable clock for Alternate Function*/
+								 RCC_APB2ENR_IOPAEN |  /* enable clock for GPIOA*/
+								 RCC_APB2ENR_IOPBEN |	/*enable clock for GPIOB*/
+								 RCC_APB2ENR_IOPCEN |/*enable clock for GPIOc*/ 									 
+								 RCC_APB2ENR_IOPDEN	
+								);   
+	AFIO->MAPR = AFIO_MAPR_SWJ_CFG_JTAGDISABLE;  
+	EXTI_Init();
 	RTC_Init();
 	
-	USART1_Init(SystemCoreClock,115200);
+	//USART1_Init(SystemCoreClock,115200);
+	USART3_Init(SystemCoreClock/2,115200 ,USART_WordLength_8b,USART_StopBits_1,USART_Parity_No);
   //	PRINTA("\n*******Booting %s*******\n", CONTIKI_VERSION_STRING);
 	printf("\n*** Booting %s (%s %s) ***\n", CONTIKI_VERSION_STRING, __DATE__, __TIME__);
 	/* init LEDs */
@@ -137,7 +146,7 @@ void initialize(void) {
 	
 	ctimer_init();
 	/* Start radio and radio receive process */
-	//NETSTACK_RADIO.init();
+	NETSTACK_RADIO.init();
 	/* Get a random seed for the 802.15.4 packet sequence number.
 	 * Some layers will ignore duplicates found in a history (e.g. Contikimac)
 	 * causing the initial packets to be ignored after a short-cycle restart.

@@ -156,55 +156,68 @@
 #define LED2_PIN_CLR					LED2_PORT->BSRR = LED2_PIN
 #define LED2_PIN_GET() 	(LED2_PORT->IDR & LED2_PIN)
 
-#define CC1200_CSN_PORT_BASE	GPIOB
-#define CC1200_CSN_PIN_MASK	GPIO_BSRR_BS7
-#define CC1200_CSN_OUTPUT		CC1200_CSN_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE7 | GPIO_CRL_CNF7); CC1200_CSN_PORT_BASE->CRL	|= (GPIO_CRL_MODE7_0)
-#define CC1200_CSN_INPUT		CC1200_CSN_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE7 | GPIO_CRL_CNF7); CC1200_CSN_PORT_BASE->CRL	|= (GPIO_CRL_CNF7_0)
+
+#define CC1200_CSN_PORT_BASE	GPIOA
+#define CC1200_CSN_PIN_MASK	GPIO_BSRR_BS4
+#define CC1200_CSN_OUTPUT		CC1200_CSN_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE4 | GPIO_CRL_CNF4); CC1200_CSN_PORT_BASE->CRL	|= (GPIO_CRL_MODE4_0 | GPIO_CRL_MODE4_1)
+#define CC1200_CSN_INPUT		CC1200_CSN_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE4 | GPIO_CRL_CNF4);
 #define CC1200_CSN_CLR					CC1200_CSN_PORT_BASE->BRR = CC1200_CSN_PIN_MASK
 #define CC1200_CSN_SET					CC1200_CSN_PORT_BASE->BSRR = CC1200_CSN_PIN_MASK
 
 #define CC1200_GDO2_PORT_BASE	GPIOB
-#define CC1200_GDO2_PIN_MASK	GPIO_BSRR_BS9
-#define CC1200_GDO2_INPUT_FLOAT		CC1200_GDO2_PORT_BASE->CRH	&= ~(GPIO_CRH_MODE9 | GPIO_CRH_CNF9);CC1200_GDO2_PORT_BASE->CRH	|=  GPIO_CRH_CNF9_0
+#define CC1200_GDO2_PIN_MASK	GPIO_BSRR_BS0
+#define CC1200_GDO2_INPUT_FLOAT		CC1200_GDO2_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE0 | GPIO_CRL_CNF0);CC1200_GDO2_PORT_BASE->CRL	|=  GPIO_CRL_CNF0_0
 #define CC1200_GDO2_GET() 	(CC1200_GDO2_PORT_BASE->IDR & CC1200_GDO2_PIN_MASK)
 #define	CC1200_GDO2_INT_EN \
-		EXTI->PR = EXTI_Line8;\
-    AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI9_PB; /*set pin to use*/ \
-		EXTI->IMR       &= ~EXTI_Line9;/*mask interrupt*/\
-    EXTI->EMR       &= ~EXTI_Line9; /*mask event*/\
-		EXTI->IMR       |= 	EXTI_Line9; /*mask interrupt*/\
-		EXTI->EMR       |= EXTI_Line9; /*mask event*/\
-    EXTI->RTSR      &= ~EXTI_Line9; /*clear rising edge*/\
-    EXTI->FTSR      |= EXTI_Line9;  /*set falling edge*/\
-		NVIC_SetPriority(EXTI9_5_IRQn, ((0x01<<3)| 1));\
-		NVIC_EnableIRQ(EXTI9_5_IRQn)
-#define	CC1200_GDO2_INT_RISING EXTI->RTSR |= EXTI_Line9;EXTI->FTSR &= ~EXTI_Line9
-#define	CC1200_GDO2_INT_FALLING EXTI->RTSR &= ~EXTI_Line9;EXTI->FTSR |= EXTI_Line9
-#define	CC1200_GDO2_INT_DIS	NVIC_DisableIRQ(EXTI9_5_IRQn)
+		NVIC_SetPriority(EXTI0_IRQn, ((0x01<<3)| 1));\
+		NVIC_EnableIRQ(EXTI0_IRQn)
+#define	CC1200_GDO2_INT_RISING EXTI->PR = EXTI_Line0;\
+    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PB; /*set pin to use*/ \
+		EXTI->IMR       &= ~EXTI_Line0;/*mask interrupt*/\
+    EXTI->EMR       &= ~EXTI_Line0; /*mask event*/\
+		EXTI->IMR       |= 	EXTI_Line0; /*mask interrupt*/\
+		EXTI->EMR       |= EXTI_Line0; /*mask event*/\
+    EXTI->RTSR      |= EXTI_Line0; /*clear rising edge*/\
+    EXTI->FTSR      &= ~EXTI_Line0
+#define	CC1200_GDO2_INT_FALLING EXTI->PR = EXTI_Line0;\
+    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PB; /*set pin to use*/ \
+		EXTI->IMR       &= ~EXTI_Line0;/*mask interrupt*/\
+    EXTI->EMR       &= ~EXTI_Line0; /*mask event*/\
+		EXTI->IMR       |= 	EXTI_Line0; /*mask interrupt*/\
+		EXTI->EMR       |= EXTI_Line0; /*mask event*/\
+    EXTI->RTSR      &= ~EXTI_Line0; /*clear rising edge*/\
+    EXTI->FTSR      |= EXTI_Line0
+#define	CC1200_GDO2_INT_DIS	NVIC_DisableIRQ(EXTI0_IRQn)
 
-#define CC1200_GDO0_PORT_BASE	GPIOB
-#define CC1200_GDO0_PIN_MASK	GPIO_BSRR_BS8
-#define CC1200_GDO0_INPUT_FLOAT		CC1200_GDO0_PORT_BASE->CRH	&= ~(GPIO_CRH_MODE8 | GPIO_CRH_CNF8);CC1200_GDO0_PORT_BASE->CRH	|=  GPIO_CRH_CNF8_0
+#define CC1200_GDO0_PORT_BASE	GPIOA
+#define CC1200_GDO0_PIN_MASK	GPIO_BSRR_BS3
+#define CC1200_GDO0_INPUT_FLOAT		CC1200_GDO0_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3);CC1200_GDO0_PORT_BASE->CRL	|=  GPIO_CRL_CNF3_0
 #define CC1200_GDO0_GET() 	(CC1200_GDO0_PORT_BASE->IDR & CC1200_GDO0_PIN_MASK)
 #define	CC1200_GDO0_INT_EN \
-		EXTI->PR = EXTI_Line8;\
-    AFIO->EXTICR[2] |= AFIO_EXTICR3_EXTI8_PB; /*set pin to use*/ \
-		EXTI->IMR       &= ~EXTI_Line8;/*mask interrupt*/\
-    EXTI->EMR       &= ~EXTI_Line8; /*mask event*/\
-		EXTI->IMR       |= 	EXTI_Line8; /*mask interrupt*/\
-		EXTI->EMR       |= EXTI_Line8; /*mask event*/\
-    EXTI->RTSR      &= ~EXTI_Line8; /*clear rising edge*/\
-    EXTI->FTSR      |= EXTI_Line8;  /*set falling edge*/\
-		NVIC_SetPriority(EXTI9_5_IRQn, ((0x01<<3)| 1));\
-		NVIC_EnableIRQ(EXTI9_5_IRQn)
-#define	CC1200_GDO0_INT_RISING EXTI->RTSR |= EXTI_Line8;EXTI->FTSR &= ~EXTI_Line8
-#define	CC1200_GDO0_INT_FALLING EXTI->RTSR &= ~EXTI_Line8;EXTI->FTSR |= EXTI_Line8
-#define	CC1200_GDO0_INT_DIS	NVIC_DisableIRQ(EXTI9_5_IRQn)
+		NVIC_SetPriority(EXTI3_IRQn, ((0x01<<3)| 1));\
+		NVIC_EnableIRQ(EXTI3_IRQn)
+#define	CC1200_GDO0_INT_RISING EXTI->PR = EXTI_Line3;\
+    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PA; /*set pin to use*/ \
+		EXTI->IMR       &= ~EXTI_Line3;/*mask interrupt*/\
+    EXTI->EMR       &= ~EXTI_Line3; /*mask event*/\
+		EXTI->IMR       |= 	EXTI_Line3; /*mask interrupt*/\
+		EXTI->EMR       |= EXTI_Line3; /*mask event*/\
+    EXTI->RTSR      |= EXTI_Line3; /*clear rising edge*/\
+    EXTI->FTSR      &= ~EXTI_Line3
+#define	CC1200_GDO0_INT_FALLING EXTI->PR = EXTI_Line3;\
+    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PA; /*set pin to use*/ \
+		EXTI->IMR       &= ~EXTI_Line3;/*mask interrupt*/\
+    EXTI->EMR       &= ~EXTI_Line3; /*mask event*/\
+		EXTI->IMR       |= 	EXTI_Line3; /*mask interrupt*/\
+		EXTI->EMR       |= EXTI_Line3; /*mask event*/\
+    EXTI->RTSR      &= ~EXTI_Line3; /*clear rising edge*/\
+    EXTI->FTSR      |= EXTI_Line3
+#define	CC1200_GDO0_INT_DIS	NVIC_DisableIRQ(EXTI3_IRQn)
 
 #define CC1200_RESET_PORT_BASE	GPIOB
-#define CC1200_RESET_PIN_MASK	GPIO_BSRR_BS3
-#define CC1200_RESET_OUTPUT		CC1200_RESET_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3); CC1200_RESET_PORT_BASE->CRL	|= (GPIO_CRL_MODE3_0)
-#define CC1200_RESET_INPUT		CC1200_RESET_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE3 | GPIO_CRL_CNF3); CC1200_RESET_PORT_BASE->CRL	|= (GPIO_CRL_CNF3_0)
+#define CC1200_RESET_PIN_MASK	GPIO_BSRR_BS1
+#define CC1200_RESET_OUTPUT		CC1200_RESET_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE1 | GPIO_CRL_CNF1); CC1200_RESET_PORT_BASE->CRL	|= (GPIO_CRL_MODE1_0)
+#define CC1200_RESET_INPUT		CC1200_RESET_PORT_BASE->CRL	&= ~(GPIO_CRL_MODE1 | GPIO_CRL_CNF1); CC1200_RESET_PORT_BASE->CRL	|= (GPIO_CRL_CNF1_0)
 #define CC1200_RESET_CLR					CC1200_RESET_PORT_BASE->BRR = CC1200_RESET_PIN_MASK
 #define CC1200_RESET_SET					CC1200_RESET_PORT_BASE->BSRR = CC1200_RESET_PIN_MASK
 

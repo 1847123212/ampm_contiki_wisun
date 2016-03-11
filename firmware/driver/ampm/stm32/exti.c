@@ -28,9 +28,6 @@ void EXTI_Init(void)
 		AFIO->EXTICR[2] &= ~AFIO_EXTICR1_EXTI2;   // clear used pin
 		AFIO->EXTICR[3] &= ~AFIO_EXTICR1_EXTI3;    // clear used pin
 	
-	
-		
-
 // 		/*Use RTC Wakeup*/
 		EXTI->PR = EXTI_Line17;
 		EXTI->IMR       &= ~EXTI_Line17;             // mask interrupt
@@ -41,15 +38,27 @@ void EXTI_Init(void)
 
 }
 
-void EXTI9_5_IRQHandler(void)
-{
-	if(EXTI->PR & EXTI_Line8)
-	{
 
-		EXTI->PR = EXTI_Line8;
+extern void cc1200_int_handler(uint8_t port, uint8_t pin);
+
+void EXTI0_IRQHandler(void)
+{
+	if(EXTI->PR & EXTI_Line0)
+	{	
+		cc1200_int_handler(0,0);
+		EXTI->PR = EXTI_Line0;
 	}
 }
 
+
+void EXTI3_IRQHandler(void)
+{
+	if(EXTI->PR & EXTI_Line3)
+	{
+		cc1200_int_handler(0,0);
+		EXTI->PR = EXTI_Line3;
+	}
+}
 
 void USBWakeUp_IRQHandler(void)
 {

@@ -62,7 +62,7 @@
 #define SICSLOWPAN_CONF_COMPRESSION SICSLOWPAN_COMPRESSION_HC06
 #else
 /* ip4 should build but is largely untested */
-#define LINKADDR_CONF_SIZE        2
+#define LINKADDR_CONF_SIZE        8
 #define NETSTACK_CONF_NETWORK     rime_driver
 #endif
 
@@ -95,13 +95,18 @@
 
 #if 1 /* No radio cycling */
 
-#define NETSTACK_CONF_MAC         nullmac_driver
+#define NETSTACK_CONF_MAC         csma_driver
 #define NETSTACK_CONF_RDC         sicslowmac_driver
 #define NETSTACK_CONF_FRAMER      framer_802154
 #define NETSTACK_CONF_RADIO       cc1200_driver
-#define CC1200_CONF_USE_GPIO2       0
+#define CC1200_CONF_USE_GPIO2       1
+#define CC1200_CONF_802154G					1
 #define CC1200_CONF_USE_RX_WATCHDOG 0
 #define ANTENNA_SW_SELECT_DEF_CONF  ANTENNA_SW_SELECT_SUBGHZ
+
+/* Configure NullRDC for when it's selected */
+#define NULLRDC_802154_AUTOACK                  1
+#define NULLRDC_802154_AUTOACK_HW               1
 
 
 #define SICSLOWPAN_CONF_FRAG      1

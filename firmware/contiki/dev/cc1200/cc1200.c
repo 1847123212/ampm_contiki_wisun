@@ -1441,6 +1441,7 @@ write_reg_settings(const registerSetting_t *reg_settings,
   }
 
 }
+uint8_t id,ver;
 /*---------------------------------------------------------------------------*/
 /* Configure the radio (write basic configuration). */
 static void
@@ -1457,7 +1458,8 @@ configure(void)
    * state, let's assure that the chip is in a clean state
    */
   reset();
-
+	id = single_read(CC1200_PARTNUMBER);
+	ver = single_read(CC1200_PARTVERSION);
   /* Write the configuration as exported from SmartRF Studio */
   write_reg_settings(CC1200_RF_CFG.register_settings,
                      CC1200_RF_CFG.size_of_register_settings);
@@ -2312,7 +2314,7 @@ cc1200_rx_interrupt(void)
     }
 
     burst_read(CC1200_RXFIFO,
-               &phr,
+               (uint8_t *)&phr,
                PHR_LEN);
     payload_len = (phr.phra & 0x07);
     payload_len <<= 8;

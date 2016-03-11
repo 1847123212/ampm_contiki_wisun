@@ -10,7 +10,7 @@ Add: 143/36/10 , Lien khu 5-6 street, Binh Hung Hoa B Ward, Binh Tan District , 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "uart1.h"
+#include "uart3.h"
 
 /* The ITM port is used to direct the printf() output to the serial window in 
 the Keil simulator IDE. */
@@ -23,14 +23,14 @@ the Keil simulator IDE. */
 int fputc( int iChar, FILE *pxNotUsed ) 
 {
 	/* Just to avoid compiler warnings. */
-	( void ) pxNotUsed;
+//	( void ) pxNotUsed;
 
-	if( mainDEMCR & mainTRCENA ) 
-	{
-		while( mainITM_Port32( 0 ) == 0 );
-		mainITM_Port8( 0 ) = iChar;
-	}
-//		USART1_PutChar((uint8_t)iChar);
-//  	return( iChar );
+//	if( mainDEMCR & mainTRCENA ) 
+//	{
+//		while( mainITM_Port32( 0 ) == 0 );
+//		mainITM_Port8( 0 ) = iChar;
+//	}
+		USART3_PutChar((uint8_t)iChar);
+  	return( iChar );
 }
 
