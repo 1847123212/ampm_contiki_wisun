@@ -1,0 +1,9 @@
+.\flash\mac.o: ..\..\contiki\core\net\mac\mac.c
+.\flash\mac.o: ..\..\contiki\core\net/mac/mac.h
+.\flash\mac.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\mac.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\mac.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\mac.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\mac.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\mac.o: ..\..\contiki\core\dev/radio.h
+.\flash\mac.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h

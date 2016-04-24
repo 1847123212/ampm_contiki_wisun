@@ -1,0 +1,9 @@
+.\flash\random.o: ..\..\contiki\core\lib\random.c
+.\flash\random.o: ..\..\contiki\core\lib/random.h
+.\flash\random.o: ..\..\contiki\core\sys/clock.h
+.\flash\random.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\random.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\random.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\random.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\random.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\random.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h

@@ -1,0 +1,9 @@
+.\flash\ringbuf.o: ..\..\contiki\core\lib\ringbuf.c
+.\flash\ringbuf.o: ..\..\contiki\core\lib/ringbuf.h
+.\flash\ringbuf.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\ringbuf.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\ringbuf.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\ringbuf.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\ringbuf.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\ringbuf.o: ..\..\contiki\core\sys/cc.h
+.\flash\ringbuf.o: ..\..\contiki\core\sys/cc-gcc.h

@@ -17,7 +17,7 @@ Add: 143/36/10 , Lien khu 5-6 street, Binh Hung Hoa B Ward, Binh Tan District , 
 #include "exti.h"
 #include "low_power_mode.h"
 #include "rtc.h"
-
+#include <stdio.h>
 void EXTI_Init(void)
 {
 //		//RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;                     // enable clock for Alternate Function
@@ -45,6 +45,7 @@ void EXTI0_IRQHandler(void)
 {
 	if(EXTI->PR & EXTI_Line0)
 	{	
+		printf("\r\nGPIO2_INT\r\n");
 		cc1200_int_handler(0,0);
 		EXTI->PR = EXTI_Line0;
 	}
@@ -55,6 +56,7 @@ void EXTI3_IRQHandler(void)
 {
 	if(EXTI->PR & EXTI_Line3)
 	{
+		printf("\r\nGPIO0_INT\r\n");
 		cc1200_int_handler(0,0);
 		EXTI->PR = EXTI_Line3;
 	}

@@ -62,7 +62,7 @@
 #endif /*X_NUCLEO_IKS01A1*/
 /*---------------------------------------------------------------------------*/
 #define F_CPU                   48000000ul
-#define RTIMER_ARCH_SECOND              32768
+#define RTIMER_ARCH_SECOND              1000
 //#define PRESCALER       ((F_CPU / (RTIMER_ARCH_SECOND * 2)))
 
 #define UART1_CONF_TX_WITH_INTERRUPT        0

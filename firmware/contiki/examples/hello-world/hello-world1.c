@@ -41,6 +41,14 @@
 
 #include <stdio.h> /* For printf() */
 #include "dev/button-sensor.h"
+
+#include "net/mac/frame802154.h"
+#include "net/mac/framer-802154.h"
+#include "net/ipv6/sicslowpan.h"
+#include "net/ip/uip.h"
+#include "net/ipv6/uip-ds6.h"
+
+
 int helloTaskCnt1 = 0;
 static struct etimer timer1,timer2;
 SENSORS(&button_sensor);
@@ -53,16 +61,44 @@ PROCESS_THREAD(hello_world_process2, ev, data)
 	/*
    * Loop for ever.
    */
+	int len;
+	uint8_t ackbuf[256];
   while(1) {
     /*
      * We set a timer that wakes us up once every second. 
      */
     etimer_set(&timer1, CLOCK_SECOND);
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer1));
-		printf("Hello world process2\n");
+//		if(NETSTACK_RADIO.pending_packet()) {
+//			len = NETSTACK_RADIO.read(ackbuf, 256);
+//			if(len) {
+//				printf("Data:%s\n\r",ackbuf);
+//			}
+//		}
+		
   }
 	PROCESS_END();
 }
+
+
+PROCESS(hello_world_process3, "Hello world process3");
+PROCESS_THREAD(hello_world_process3, ev, data)
+{
+	PROCESS_BEGIN();
+	/*
+   * Loop for ever.
+   */
+  while(1) {
+    rtimer_clock_t t0;                                                  
+    t0 = RTIMER_NOW();                                                  
+    while(RTIMER_CLOCK_LT(RTIMER_NOW(), t0 + (RTIMER_SECOND)));
+		printf("Hello world process3\r\n");
+  }
+	PROCESS_END();
+}
+
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process1, "Hello world process1");
 /*---------------------------------------------------------------------------*/
@@ -71,12 +107,24 @@ PROCESS_THREAD(hello_world_process1, ev, data)
 	
   PROCESS_BEGIN();
 	process_start(&hello_world_process2, NULL);
+	//process_start(&hello_world_process3, NULL);
 	SENSORS_ACTIVATE(button_sensor);
   while(1)
 	{
-		etimer_set(&timer2, CLOCK_SECOND);
+		
+//		int ret;
+//		ret = NETSTACK_RADIO.send("thienhaibluethienhaibluethienhaibluethienhaiblue\r\n", 10);
+//		switch(ret) {
+//		case RADIO_TX_OK:
+//			printf("Radio sent ok\n");
+//			break;
+//		case RADIO_TX_ERR:
+//			printf("Radio sent error\n");
+//			break;
+//		}
+		etimer_set(&timer2, CLOCK_SECOND*10);
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&timer2));
-		printf("Hello world process1\n");
+		
 		PROCESS_PAUSE();
 	}
   PROCESS_END();
