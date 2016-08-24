@@ -1,0 +1,15 @@
+.\flash\etimer.o: ..\..\contiki\core\sys\etimer.c
+.\flash\etimer.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\etimer.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\etimer.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\etimer.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\etimer.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\etimer.o: ..\..\contiki\core\sys/etimer.h
+.\flash\etimer.o: ..\..\contiki\core\sys/timer.h
+.\flash\etimer.o: ..\..\contiki\core\sys/clock.h
+.\flash\etimer.o: ..\..\contiki\core\sys/process.h
+.\flash\etimer.o: ..\..\contiki\core\sys/pt.h
+.\flash\etimer.o: ..\..\contiki\core\sys/lc.h
+.\flash\etimer.o: ..\..\contiki\core\sys/lc-switch.h
+.\flash\etimer.o: ..\..\contiki\core\sys/cc.h
+.\flash\etimer.o: ..\..\contiki\core\sys/cc-gcc.h

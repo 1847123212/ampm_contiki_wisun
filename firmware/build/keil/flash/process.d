@@ -1,0 +1,14 @@
+.\flash\process.o: ..\..\contiki\core\sys\process.c
+.\flash\process.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+.\flash\process.o: ..\..\contiki\core\sys/process.h
+.\flash\process.o: ..\..\contiki\core\sys/pt.h
+.\flash\process.o: ..\..\contiki\core\sys/lc.h
+.\flash\process.o: ..\..\contiki\core\sys/lc-switch.h
+.\flash\process.o: ..\..\contiki\core\sys/cc.h
+.\flash\process.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\process.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\process.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\process.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\process.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\process.o: ..\..\contiki\core\sys/cc-gcc.h
+.\flash\process.o: ..\..\contiki\core\sys/arg.h

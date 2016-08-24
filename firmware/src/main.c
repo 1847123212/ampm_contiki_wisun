@@ -147,6 +147,7 @@ void initialize(void) {
 	ctimer_init();
 	/* Start radio and radio receive process */
 	NETSTACK_RADIO.init();
+	NETSTACK_RADIO.on();
 	/* Get a random seed for the 802.15.4 packet sequence number.
 	 * Some layers will ignore duplicates found in a history (e.g. Contikimac)
 	 * causing the initial packets to be ignored after a short-cycle restart.

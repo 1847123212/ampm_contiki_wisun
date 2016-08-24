@@ -1,0 +1,15 @@
+.\flash\debug-uart.o: ..\..\contiki\cpu\arm\stm32f103\debug-uart.c
+.\flash\debug-uart.o: ..\..\contiki\cpu\arm\stm32f103\debug-uart.h
+.\flash\debug-uart.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\debug-uart.o: ..\..\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
+.\flash\debug-uart.o: ..\..\CMSIS\CM3\CoreSupport\core_cm3.h
+.\flash\debug-uart.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\debug-uart.o: ..\..\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
+.\flash\debug-uart.o: ..\..\contiki\platform\stm32f10x\stm32f10x_conf.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
+.\flash\debug-uart.o: ..\..\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\stm32f10x_dma.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\stm32f10x_flash.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\flash\debug-uart.o: ..\..\driver\STM32F10x_StdPeriph_Driver\inc\misc.h

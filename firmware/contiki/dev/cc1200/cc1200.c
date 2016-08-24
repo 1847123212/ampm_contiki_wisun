@@ -71,11 +71,11 @@
 #if CC1200_RF_TESTMODE
 #undef CC1200_RF_CFG
 #if CC1200_RF_TESTMODE == 1
-#define CC1200_RF_CFG                   cc1200_802154g_863_870_fsk_50kbps
+#define CC1200_RF_CFG                   cc1200_802154g_420_470_fsk_50kbps
 #elif CC1200_RF_TESTMODE == 2
-#define CC1200_RF_CFG                   cc1200_802154g_863_870_fsk_50kbps
+#define CC1200_RF_CFG                   cc1200_802154g_420_470_fsk_50kbps
 #elif CC1200_RF_TESTMODE == 3
-#define CC1200_RF_CFG                   cc1200_802154g_863_870_fsk_50kbps
+#define CC1200_RF_CFG                   cc1200_802154g_420_470_fsk_50kbps
 #endif
 #endif
 /*
@@ -811,7 +811,6 @@ transmit(unsigned short transmit_len)
 
     BUSYWAIT_UNTIL_STATE(STATE_RX,
                          RTIMER_SECOND / 100);
-
     ENABLE_GPIO_INTERRUPTS();
 
   } else {
@@ -1024,7 +1023,7 @@ static int
 pending_packet(void)
 {
 
-  INFO("RF: Pending (%d)\n", ((rx_pkt_len != 0) ? 1 : 0));
+  //INFO("RF: Pending (%d)\n", ((rx_pkt_len != 0) ? 1 : 0));
   return (rx_pkt_len != 0) ? 1 : 0;
 
 }
@@ -2084,10 +2083,14 @@ set_channel(uint8_t channel)
 
   idle();
 
-  freq = calculate_freq(channel - CC1200_RF_CFG.min_channel);
-  single_write(CC1200_FREQ0, ((uint8_t *)&freq)[0]);
-  single_write(CC1200_FREQ1, ((uint8_t *)&freq)[1]);
-  single_write(CC1200_FREQ2, ((uint8_t *)&freq)[2]);
+//  freq = calculate_freq(channel - CC1200_RF_CFG.min_channel);
+//  single_write(CC1200_FREQ0, ((uint8_t *)&freq)[0]);
+//  single_write(CC1200_FREQ1, ((uint8_t *)&freq)[1]);
+//  single_write(CC1200_FREQ2, ((uint8_t *)&freq)[2]);
+	//434Mhz
+	single_write(CC1200_FREQ0, 0xcc);
+  single_write(CC1200_FREQ1, 0xcc);
+  single_write(CC1200_FREQ2, 0x56);
 
   rf_channel = channel;
 
@@ -2294,7 +2297,7 @@ cc1200_rx_interrupt(void)
     return 0;
 
   }
-
+	INFO("RF: num_rxbytes = %d\n", num_rxbytes);
   if(!(rf_flags & RF_RX_PROCESSING_PKT)) {
 
 #if CC1200_802154G
@@ -2355,7 +2358,7 @@ cc1200_rx_interrupt(void)
     RX_LEDS_ON();
     bytes_read = 0;
     num_rxbytes -= PHR_LEN;
-
+		INFO("RF: payload_len = %d\n", payload_len);
     rf_flags |= RF_RX_PROCESSING_PKT;
 
     /* Fall through... */
@@ -2368,7 +2371,7 @@ cc1200_rx_interrupt(void)
      * Read out remaining bytes unless FIFO is empty.
      * We have at least num_rxbytes in the FIFO to be read out.
      */
-
+		
     if((num_rxbytes + bytes_read) > (payload_len + CC_APPENDIX_LEN)) {
 
       /*
@@ -2391,6 +2394,7 @@ cc1200_rx_interrupt(void)
                num_rxbytes);
 
     bytes_read += num_rxbytes;
+		INFO("RF: bytes_read = %d\n", bytes_read);
     num_rxbytes = 0;
 
     if(bytes_read == (payload_len + CC_APPENDIX_LEN)) {

@@ -1,0 +1,13 @@
+.\flash\autostart.o: ..\..\contiki\core\sys\autostart.c
+.\flash\autostart.o: ..\..\contiki\core\sys/autostart.h
+.\flash\autostart.o: ..\..\contiki\core\sys/process.h
+.\flash\autostart.o: ..\..\contiki\core\sys/pt.h
+.\flash\autostart.o: ..\..\contiki\core\sys/lc.h
+.\flash\autostart.o: ..\..\contiki\core\sys/lc-switch.h
+.\flash\autostart.o: ..\..\contiki\core\sys/cc.h
+.\flash\autostart.o: ..\..\contiki\platform\stm32f10x\contiki-conf.h
+.\flash\autostart.o: ..\..\contiki\platform\stm32f10x\platform-conf.h
+.\flash\autostart.o: C:\Keil\ARM\ARMCC\bin\..\include\inttypes.h
+.\flash\autostart.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\flash\autostart.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\flash\autostart.o: ..\..\contiki\core\sys/cc-gcc.h
